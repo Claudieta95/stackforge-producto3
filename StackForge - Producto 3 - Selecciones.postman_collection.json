@@ -1,0 +1,164 @@
+{
+  "info": {
+    "_postman_id": "e097bc81-50f1-44f7-8ea1-f3a7cdc38d45",
+    "name": "StackForge - Producto 3 - Selecciones",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "60099773",
+    "_collection_link": "https://go.postman.co/collection/60099773-e097bc81-50f1-44f7-8ea1-f3a7cdc38d45?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Consultar selecciones",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{vault:admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "{\r\n  selecciones {\r\n    idIntercambio\r\n  }\r\n}"
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:4000/graphql",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "4000",
+          "path": [
+            "graphql"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Guardar selección",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{vault:admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation {\r\n  guardarSeleccion(idIntercambio: 2) {\r\n    idIntercambio\r\n  }\r\n}"
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:4000/graphql",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "4000",
+          "path": [
+            "graphql"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar selección",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{vault:admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation {\r\n  eliminarSeleccion(idIntercambio: 3)\r\n}"
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:4000/graphql",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "4000",
+          "path": [
+            "graphql"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Consultar selección por ID",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{vault:admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "{\r\n  seleccion(idIntercambio: 2) {\r\n    idIntercambio\r\n  }\r\n}"
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:4000/graphql",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "4000",
+          "path": [
+            "graphql"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
