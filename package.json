@@ -1,0 +1,29 @@
+{
+  "name": "stackforge-producto3",
+  "version": "1.0.0",
+  "description": "Plataforma de intercambio de idiomas.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Claudieta95/stackforge-producto3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Claudieta95/stackforge-producto3/issues"
+  },
+  "homepage": "https://github.com/Claudieta95/stackforge-producto3#readme",
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "graphql": "^17.1.0",
+    "graphql-http": "^1.23.1",
+    "mongodb": "^7.8.0"
+  }
+}
