@@ -4,6 +4,7 @@ import { conectarMongoDB, cerrarMongoDB } from "./config/mongodb.js";
 import { createHandler } from "graphql-http/lib/use/express";
 import { schema, root } from "./graphql/schema.js";
 import { comprobarAdmin } from "./auth/adminAuth.js";
+import { prepararSelecciones } from "./modules/selecciones/selecciones.resolvers.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -31,6 +32,7 @@ app.get("/admin/comprobar", comprobarAdmin, (req, res) => {
 async function iniciarServidor() {
   try {
     await conectarMongoDB();
+    await prepararSelecciones();
 
     const servidor = app.listen(PORT, () => {
       console.log(`Servidor iniciado en http://localhost:${PORT}`);

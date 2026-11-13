@@ -1,6 +1,9 @@
 import { crearEsquemaModular } from "./modulos.js";
+import { seleccionesModulo } from "../modules/selecciones/selecciones.module.js";
 
-// Los módulos se incorporarán aquí cuando estén preparados.
-const modulos = [];
+// Módulos disponibles de la aplicación.
+const modulos = [
+  seleccionesModulo
+];
 
 export const { schema, root } = crearEsquemaModular(modulos);
