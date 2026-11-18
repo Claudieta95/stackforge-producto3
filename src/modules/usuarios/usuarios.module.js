@@ -219,6 +219,52 @@ export const usuariosModulo = {
 
             // Devolver true si se ha eliminado
             return resultado.deletedCount === 1;
-        }
+         }
     }
 };
+
+
+/**
+* Inicializa usuarios de demostración en MongoDB.
+* Solo añade usuarios que todavía no existen.
+* Las contraseñas se almacenan mediante hash.
+*/
+export async function inicializarUsuariosEjemplo() {
+    const db = obtenerBD();
+    const coleccion = db.collection("usuarios");
+
+    const usuariosEjemplo = [
+        { nombre: "María", email: "maria@email.com" },
+        { nombre: "Laura", email: "laura@email.com" },
+        { nombre: "Carlos", email: "carlos@email.com" },
+        { nombre: "Pedro", email: "pedro@email.com" }
+    ];
+
+    // Garantizar correos electrónicos únicos
+    await coleccion.createIndex(
+        { email: 1 },
+        { unique: true },
+        {}
+    );
+
+    // Contraseña temporal para usuarios de demostración
+    const passwordHash = await bcrypt.hash("1234", 12);
+
+    for (const usuario of usuariosEjemplo) {
+        await coleccion.updateOne(
+            { email: usuario.email },
+            {
+                $setOnInsert: {
+                    nombre: usuario.nombre,
+                    email: usuario.email,
+                    password: passwordHash
+                }
+            },
+            { upsert: true }
+        );
+    }
+
+    console.log("Usuarios de demostración inicializados.");
+}
+
+    
