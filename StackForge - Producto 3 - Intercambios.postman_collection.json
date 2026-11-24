@@ -1,0 +1,180 @@
+{
+  "info": {
+    "name": "StackForge - Producto 3 - Intercambios",
+   "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+   "_exporter_id": "60099773",
+   "_collection_link": "https://go.postman.co/collection/60099773-e097bc81-50f1-44f7-8ea1-f3a7cdc38d45?source=collection_link"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{admin_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:4000/graphql"
+    },
+    {
+      "key": "admin_token",
+      "value": "REEMPLAZAR_POR_TU_ADMIN_TOKEN"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Inicializar intercambios de ejemplo",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation { inicializarIntercambiosEjemplo { id titulo email fecha descripcion tipo } }"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    },
+    {
+      "name": "2. Consultar todos los intercambios",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query { intercambios { id titulo email fecha descripcion tipo } }"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    },
+    {
+      "name": "3. Consultar intercambio por ID",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query($id: Int!) { intercambio(id: $id) { id titulo email fecha descripcion tipo } }",
+            "variables": "{\n  \"id\": 1\n}"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    },
+    {
+      "name": "4. Crear nuevo intercambio",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation($datos: IntercambioInput!) { crearIntercambio(datos: $datos) { id titulo email fecha descripcion tipo } }",
+            "variables": "{\n  \"datos\": {\n    \"titulo\": \"Práctica de alemán conversación\",\n    \"email\": \"rafael@email.com\",\n    \"fecha\": \"2026-11-20\",\n    \"descripcion\": \"Busco practicar alemán nivel B1 por videollamada.\",\n    \"tipo\": \"Busco idioma\"\n  }\n}"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    },
+    {
+      "name": "5. Error de validación (tipo inválido)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation($datos: IntercambioInput!) { crearIntercambio(datos: $datos) { id titulo } }",
+            "variables": "{\n  \"datos\": {\n    \"titulo\": \"Prueba error\",\n    \"email\": \"test@email.com\",\n    \"fecha\": \"2026-11-20\",\n    \"descripcion\": \"Debe fallar por tipo inválido\",\n    \"tipo\": \"Tipo inventado\"\n  }\n}"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    },
+    {
+      "name": "6. Actualizar intercambio",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation($id: Int!, $datos: ActualizarIntercambioInput!) { actualizarIntercambio(id: $id, datos: $datos) { id titulo descripcion tipo } }",
+            "variables": "{\n  \"id\": 3,\n  \"datos\": {\n    \"titulo\": \"Práctica de alemán B1/B2\",\n    \"tipo\": \"Ofrezco idioma\"\n  }\n}"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    },
+    {
+      "name": "7A. Guardar selección asociada (preparar cascada)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation($idIntercambio: Int!) { guardarSeleccion(idIntercambio: $idIntercambio) { idIntercambio } }",
+            "variables": "{\n  \"idIntercambio\": 3\n}"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    },
+    {
+      "name": "7B. Eliminar intercambio (y su selección asociada)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "mutation($id: Int!) { eliminarIntercambio(id: $id) }",
+            "variables": "{\n  \"id\": 3\n}"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    },
+    {
+      "name": "7C. Verificar que la selección desapareció",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query { selecciones { idIntercambio } }"
+          }
+        },
+        "url": "{{base_url}}"
+      }
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { createHandler } from "graphql-http/lib/use/express";
 import { schema, root } from "./graphql/schema.js";
 import { comprobarAdmin } from "./auth/adminAuth.js";
 import { prepararSelecciones } from "./modules/selecciones/selecciones.resolvers.js";
+import { prepararIntercambios } from "./modules/intercambios/intercambios.resolvers.js";
 import { inicializarUsuariosEjemplo } from "./modules/usuarios/usuarios.module.js";
 
 const app = express();
@@ -34,6 +35,7 @@ async function iniciarServidor() {
   try {
     await conectarMongoDB();
     await prepararSelecciones();
+    await prepararIntercambios();
     await inicializarUsuariosEjemplo();
 
     const servidor = app.listen(PORT, () => {
